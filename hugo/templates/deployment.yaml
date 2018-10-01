@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "hugo.fullname" . }}
+  labels:
+    app: {{ .Values.app }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.labels.app }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.labels.app }}
+        release: {{ .Release.Name }}
+    spec:
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          image: alpine/git
+          args:
+            - clone
+            - --single-branch
+            - --recursive
+            - -b
+            - {{ .Values.init.branch }}
+            - --
+            - {{ .Values.init.repo }}
+            - /site
+          volumeMounts:
+            - name: site
+              mountPath: /site
+      containers:
+        - name: {{ .Chart.Name }}-git-sync
+          image: hugo/git-sync
+          env:
+          - name: REPO
+            value: /site
+          - name: SYNC_WAIT
+            value: "7200"
+          volumeMounts:
+            - name: site
+              mountPath: /site
+        - name: {{ .Chart.Name }}-hugo
+          image: "{{ .Values.blog.repo }}:{{ .Values.blog.tag }}"
+          imagePullPolicy: Always
+          args:
+            - server
+            - --bind
+            - 0.0.0.0
+            - -p=80
+            - -b
+            - "{{ .Values.ingress.protocol }}://{{ .Values.ingress.host }}"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: site
+              mountPath: /site
+      volumes:
+      - name: site
+        emptyDir: {}

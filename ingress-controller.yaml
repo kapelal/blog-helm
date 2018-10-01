@@ -1,0 +1,23 @@
+_metadata:
+  chart: stable/nginx-ingress
+  name: ingress-controller
+  namespace: reverse-proxy
+  version: 0.20.0
+
+controller:
+  tag: "0.12.0"
+  ingressClass: nginx-kapelal
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  replicaCount: 2
+  service:
+    loadBalancerIP: 35.195.111.35
+  stats:
+    enabled: true
+  metrics:
+    enabled: true
+rbac:
+  create: true
+  serviceAccountName: default

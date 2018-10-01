@@ -1,0 +1,13 @@
+labels:
+  app: kapelal-blog
+init:
+  repo: https://github.com/test/test.git
+  branch: master
+blog:
+  repo: kapelal/gohugo-docker
+  tag: draft
+ingress:
+  host: ingress.com
+  protocol: http
+#  annotations:
+#    kubernetes.io/ingress.class: nginx-kapelal
