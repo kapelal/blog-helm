@@ -4,8 +4,7 @@ init:
   repo: https://github.com/test/test.git
   branch: master
 blog:
-  repo: kapelal/gohugo-docker
-  tag: draft
+  tag: latest
 ingress:
   host: ingress.com
   protocol: http

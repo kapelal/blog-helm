@@ -35,7 +35,7 @@ spec:
               mountPath: /site
       containers:
         - name: {{ .Chart.Name }}-git-sync
-          image: hugo/git-sync
+          image: kapelal/git-sync
           env:
           - name: REPO
             value: /site
@@ -45,7 +45,7 @@ spec:
             - name: site
               mountPath: /site
         - name: {{ .Chart.Name }}-hugo
-          image: "{{ .Values.blog.repo }}:{{ .Values.blog.tag }}"
+          image: kapelal/gohugo-docker:{{ .Values.blog.tag }}
           imagePullPolicy: Always
           args:
             - server

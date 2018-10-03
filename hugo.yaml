@@ -2,10 +2,6 @@ labels:
   app: kapelal-blog
 init:
   repo: https://github.com/Kapelal/blog.git
-  branch: master
-blog:
-  repo: kapelal/gohugo-docker
-  tag: draft
 ingress:
   host: kapelal.io
   protocol: http
