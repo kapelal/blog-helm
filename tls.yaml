@@ -1,0 +1,18 @@
+_metadata:
+  chart: ./cert-impl
+  name: tls
+  namespace: reverse-proxy
+  version: 0.1.0
+
+email: dsousa.rob@gmail.com
+project: kapelal-203808
+
+certificates:
+  - name: tls.kapelal.io
+    domains:
+    - 'kapelal.io'
+    issuer: letsencrypt-prod
+
+service_account:
+  name: cloud-sa
+  key: credentials.json

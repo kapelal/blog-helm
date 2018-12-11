@@ -9,8 +9,13 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   ports:
+{{- if .Values.ingress.tls }}
+    - port: 443
+      targetPort: 443
+{{- else }}
     - port: 80
       targetPort: 80
+{{- end }}
       protocol: TCP
   selector:
     app: {{ .Values.labels.app }}

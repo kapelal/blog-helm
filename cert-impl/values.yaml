@@ -1,0 +1,14 @@
+email: foo@bar.com
+project: project_name
+
+issuers:
+- name: letsencrypt-staging
+  server: https://acme-staging-v02.api.letsencrypt.org/directory
+- name: letsencrypt-prod
+  server: https://acme-v02.api.letsencrypt.org/directory
+
+certificates: []
+  ##- name: wildcard-example-com
+  ##  domains:
+  ##  - *.example.com
+  ##  issuer: letsencrypt-staging

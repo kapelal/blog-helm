@@ -51,7 +51,11 @@ spec:
             - server
             - --bind
             - 0.0.0.0
+            {{- if .Values.ingress.tls }}
+            - -p=443
+            {{- else }}
             - -p=80
+            {{- end }}
             - -b
             - "{{ .Values.ingress.protocol }}://{{ .Values.ingress.host }}"
           ports:

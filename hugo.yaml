@@ -1,9 +1,19 @@
+_metadata:
+  chart: ./hugo
+  name: blog
+  namespace: blog
+  version: 0.1.0
+
 labels:
   app: kapelal-blog
 init:
   repo: https://github.com/Kapelal/blog.git
 ingress:
   host: kapelal.io
-  protocol: http
+  protocol: https
   annotations:
     kubernetes.io/ingress.class: nginx-kapelal
+  tls:
+    hosts:
+      - kapelal.io
+    secretName: tls.kapelal.io

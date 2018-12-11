@@ -1,0 +1,26 @@
+{{- range $index, $issuer := .Values.issuers }}
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Issuer
+metadata:
+  name: "{{ $issuer.name }}-{{ $.Release.Name }}"
+  labels:
+    app: {{ template "fullname" $ }}
+    chart: "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
+    release: "{{ $.Release.Name }}"
+    heritage: "{{ $.Release.Service }}"
+spec:
+  acme:
+    server: "{{ $issuer.server }}"
+    email: "{{ $.Values.email }}"
+    privateKeySecretRef:
+      name: "{{ $issuer.name }}-private-key"
+    dns01:
+      providers:
+      - name: clouddns
+        clouddns:
+          project: "{{ $.Values.project }}"
+          serviceAccountSecretRef:
+            name: "{{ $.Values.service_account.name }}"
+            key: "{{ $.Values.service_account.key }}"
+{{- end }}

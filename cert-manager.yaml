@@ -1,0 +1,10 @@
+_metadata:
+  chart: stable/cert-manager
+  name: cert-manager
+  namespace: reverse-proxy
+  version: 0.5.2
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi

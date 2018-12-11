@@ -1,0 +1,25 @@
+{{- range $index, $cert := .Values.certificates }}
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: "{{ $cert.name }}-{{ $.Release.Name }}"
+  labels:
+    app: {{ template "fullname" $ }}
+    chart: "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
+    release: "{{ $.Release.Name }}"
+    heritage: "{{ $.Release.Service }}"
+spec:
+  secretName: "{{ $cert.name }}"
+  dnsNames:
+{{ toYaml $cert.domains | indent 2 }}
+  acme:
+    config:
+    - dns01:
+        provider: clouddns
+      domains:
+{{ toYaml $cert.domains | indent 6 }}
+  issuerRef:
+    name: "{{ $cert.issuer | default $.Values.defaultIssuer }}-{{ $.Release.Name }}"
+    kind: Issuer
+{{- end }}
