@@ -1,5 +1,5 @@
 _metadata:
-  chart: ./replicator/chart
+  chart: ./replicator
   name: replicator
   namespace: tools
   version: 0.2.0

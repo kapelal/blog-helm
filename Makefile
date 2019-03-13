@@ -1,4 +1,4 @@
-REPLICATOR_VERSION=0.1.0
+REPLICATOR_VERSION=0.2.0
 REPLICATOR_TGZ_NAME=replicator-chart-$(REPLICATOR_VERSION).tgz
 
 ingress-controller-com:
